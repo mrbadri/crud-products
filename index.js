@@ -34,7 +34,8 @@ const schema = joi.object({
   price: joi.number().required(),
   color: joi.string().min(3).max(50).required(),
   count: joi.number().required(),
-});s
+});
+s;
 
 // get list
 app.get("/api/products", (req, res) => {
@@ -47,6 +48,28 @@ app.get("/api/products/:id", (req, res) => {
   const product = products.find((product) => product.id == id);
 
   if (!product) res.status(404).send({});
+
+  res.send(product);
+});
+
+// new product
+app.post("/api/products", (req, res) => {
+  const lastProduct = products[products.length - 1];
+  const newProduct = req.body;
+  const { error } = schema.validate(newProduct);
+
+  if (error)
+    return res.status(400).send({ success: false, message: error.message });
+
+  const product = {
+    id: lastProduct.id + 1,
+    name: newProduct.name,
+    price: newProduct.price,
+    color: newProduct.color,
+    count: newProduct.count,
+  };
+
+  products.push(product);
 
   res.send(product);
 });
