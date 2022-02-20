@@ -74,6 +74,26 @@ app.post("/api/products", (req, res) => {
   res.send(product);
 });
 
+// edit product
+app.put("/api/products/:id", (req, res) => {
+  const { id } = req.params;
+  const index = products.findIndex((product) => product.id == id);
+  const { error } = schema.validate(req.body);
+
+  if (error)
+    return res.status(400).send({ success: false, message: error.message });
+
+  if (index === -1)
+    return res.status(404).send({ success: false, message: "not found!" });
+
+  products[index].name = req.body.name;
+  products[index].price = req.body.price;
+  products[index].color = req.body.color;
+  products[index].count = req.body.count;
+
+  res.send(products[index]);
+});
+
 // port
 const port = process.env.port || 3000;
 
