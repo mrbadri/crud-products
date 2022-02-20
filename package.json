@@ -1,0 +1,19 @@
+{
+  "name": "crud-products",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrbadri/crud-products.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrbadri/crud-products/issues"
+  },
+  "homepage": "https://github.com/mrbadri/crud-products#readme"
+}
