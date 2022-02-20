@@ -28,6 +28,14 @@ let products = [
   },
 ];
 
+// schema
+const schema = joi.object({
+  name: joi.string().min(3).max(50).required(),
+  price: joi.number().required(),
+  color: joi.string().min(3).max(50).required(),
+  count: joi.number().required(),
+});s
+
 // get list
 app.get("/api/products", (req, res) => {
   res.send(products);
