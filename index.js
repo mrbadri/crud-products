@@ -94,6 +94,19 @@ app.put("/api/products/:id", (req, res) => {
   res.send(products[index]);
 });
 
+// delete product
+app.delete("/api/products/:id", (req, res) => {
+  const { id } = req.params;
+  const index = products.findIndex((product) => product.id == id);
+
+  if (index === -1)
+    return res.status(404).send({ success: false, message: "not found!" });
+
+  products = [...products.slice(0, index), ...products.slice(index + 1)];
+
+  res.status(200).send();
+});
+
 // port
 const port = process.env.port || 3000;
 
