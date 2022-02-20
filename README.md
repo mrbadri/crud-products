@@ -1,6 +1,6 @@
 # Crud Products
 ## Get
-> GET List Products: `http:localhost:3000/api/products/` 
+> GET List Products: `http://localhost:3000/api/products/` 
 ```sh
 [
     {
@@ -14,7 +14,7 @@
 ]
 ```
 
-> GET One Product: `http:localhost:3000/api/products/:id` 
+> GET One Product: `http://localhost:3000/api/products/:id` 
 ```sh
 {
     "id": 1,
@@ -25,7 +25,7 @@
 }
 ```
 ## POST
-> Create A Product: `http:localhost:3000/api/products/` 
+> Create A Product: `http://localhost:3000/api/products/` 
 ```sh
 body:
     {
@@ -36,6 +36,6 @@ body:
     }
 ```
 ## PUT
-> Edit One Of Product: `http:localhost:3000/api/products/:id` 
+> Edit One Of Product: `http://localhost:3000/api/products/:id` 
 ## DELETE
-> Delete One Product: `http:localhost:3000/api/products/:id` 
+> Delete One Product: `http://localhost:3000/api/products/:id` 
