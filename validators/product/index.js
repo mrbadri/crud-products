@@ -25,7 +25,7 @@ const validateDeleteCustomer = (data) => {
   return schema.validate(data);
 };
 
-modile.exports = {
+module.exports = {
   validateCreateCustomer,
   validateReadCustomer,
   validateUpdateCustomer,
