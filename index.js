@@ -1,6 +1,7 @@
 const express = require("express");
 const joi = require("joi");
 const app = express();
+const mongoose = require("mongoose");
 
 app.use(express.json());
 
@@ -105,6 +106,16 @@ app.delete("/api/products/:id", (req, res) => {
 
   res.status(200).send();
 });
+
+// connect DB
+mongoose
+  .connect("mongodb://localhost:27017")
+  .then(() => {
+    console.log("-- DB Contected --");
+  })
+  .catch((error) => {
+    console.log("DB Have Error:", error);
+  });
 
 // port
 const port = process.env.port || 3000;
