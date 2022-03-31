@@ -1,33 +1,48 @@
 const joi = require("joi");
 joi.objectId = require("joi-objectid")(joi);
 
-const validateCreateCustomer = (data) => {
-  const schema = joi.object({});
+const validateCreateProduct = (data) => {
+  const schema = joi.object({
+    name: joi.string().min(3).max(50).required(),
+    color: joi.string().min(3).max(50).required(),
+    price: joi.number().required(),
+    count: joi.number().required(),
+  });
 
   return schema.validate(data);
 };
 
-const validateReadCustomer = (data) => {
-  const schema = joi.object({});
+const validateReadProduct = (data) => {
+  const schema = joi.object({
+    id: joi.objectId().required(),
+  });
 
   return schema.validate(data);
 };
 
-const validateUpdateCustomer = (data) => {
-  const schema = joi.object({});
+const validateUpdateProduct = (data) => {
+  const schema = joi.object({
+    name: joi.string().min(3).max(50).required(),
+    color: joi.string().min(3).max(50).required(),
+    price: joi.number().required(),
+    count: joi.number().required(),
+    id: joi.objectId().required(),
+  });
 
   return schema.validate(data);
 };
 
-const validateDeleteCustomer = (data) => {
-  const schema = joi.object({});
+const validateDeleteProduct = (data) => {
+  const schema = joi.object({
+    id: joi.objectId().required(),
+  });
 
   return schema.validate(data);
 };
 
 module.exports = {
-  validateCreateCustomer,
-  validateReadCustomer,
-  validateUpdateCustomer,
-  validateDeleteCustomer,
+  validateCreateProduct,
+  validateReadProduct,
+  validateUpdateProduct,
+  validateDeleteProduct,
 };

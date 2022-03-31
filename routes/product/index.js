@@ -3,21 +3,23 @@ const router = express.Router();
 
 const Product = require("./../../models/product/index");
 const {
-  validateDeleteCustomer,
-  validateUpdateCustomer,
-  validateReadCustomer,
-  validateCreateCustomer,
+  validateDeleteProduct,
+  validateUpdateProduct,
+  validateReadProduct,
+  validateCreateProduct,
 } = require("./../../validators/product/index");
 
-// get list
+// read list
 router.get("/api/products", async (req, res) => {
   const products = await Product.find();
   res.send(products);
 });
 
-// get per id
+// read per id
 router.get("/api/products/:id", async (req, res) => {
-  const { error } = validateReadCustomer(req.params.id);
+  const { error } = validateReadProduct({
+    id: req.params.id,
+  });
 
   if (error) return res.status(400).send("Bad Request");
 
@@ -26,24 +28,27 @@ router.get("/api/products/:id", async (req, res) => {
   res.send(product);
 });
 
-// new product
-router.post("/api/products", (req, res) => {
-  const { error } = validateCreateCustomer(req.body);
+// create product
+router.post("/api/products", async (req, res) => {
+  const { error } = validateCreateProduct(req.body);
 
   if (error)
     return res.status(400).send({ success: false, message: error.message });
 
   let product = new Product({
     name: req.body.name,
+    color: req.body.color,
+    price: req.body.price,
+    count: req.body.count,
   });
-  product = product.save();
+  product = await product.save();
 
   res.send(product);
 });
 
-// edit product
+// update product
 router.put("/api/products/:id", async (req, res) => {
-  const { error } = validateUpdateCustomer({
+  const { error } = validateUpdateProduct({
     ...req.body,
     id: req.params.id,
   });
@@ -51,16 +56,25 @@ router.put("/api/products/:id", async (req, res) => {
   if (error)
     return res.status(400).send({ success: false, message: error.message });
 
-  let product = Product.findById(req.params.id);
-  product.name = req.body.name;
-  product = await product.save();
-
-  res.send(product);
+  await Product.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(docs);
+      }
+    }
+  );
 });
 
 // delete product
 router.delete("/api/products/:id", async (req, res) => {
-  const { error } = validateDeleteCustomer(req.params.id);
+  const { error } = validateDeleteProduct({
+    id: req.params.id,
+  });
 
   if (error)
     return res.status(400).send({ success: false, message: error.message });
