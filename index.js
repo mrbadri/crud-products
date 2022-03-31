@@ -8,16 +8,6 @@ const productRoutes = require("./routes/product/index");
 app.use(express.json());
 app.use(productRoutes);
 
-
-// // schema
-// const schema = joi.object({
-//   name: joi.string().min(3).max(50).required(),
-//   price: joi.number().required(),
-//   color: joi.string().min(3).max(50).required(),
-//   count: joi.number().required(),
-// });
-
-
 // connect DB
 mongoose
   .connect("mongodb://localhost:27017")
